@@ -42,7 +42,6 @@ export class UsersComponent implements OnInit {
         for (let i of this.users) {
           if (i.id == this.userInfo.id) {
             this.currentUser = i;
-            console.log(this.currentUser);
           }
         }
       },

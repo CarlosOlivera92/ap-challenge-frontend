@@ -10,7 +10,7 @@
 .img-hero {
     position: relative;
     width: 100%;
-    height: 40rem;
+    height: 100vh;
     overflow: hidden;
     background-image: url("https://wallpaperaccess.com/full/5651990.jpg");
     background-repeat: no-repeat;
@@ -27,17 +27,18 @@
     width: 100%;
     background-color: #242424;
     opacity: .7;
-    z-index: -1;
+    z-index: 10;
 }
-.hero-text {
+.hero-text{
     padding: 2rem;
-    width: 25%;
+    width: 40rem;
     height: fit-content;
     color: aliceblue;
     position: absolute;
     top: 0;
-    left: 5rem;
+    left: 1rem;
     z-index: 1;
+    text-align: center;
 }
 .btn-outline-primary {
     font-size: 1rem;

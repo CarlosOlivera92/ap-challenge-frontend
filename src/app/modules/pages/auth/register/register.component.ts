@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
   password: string;
   telefono:number;
   birthday:Date;
-  roles:string[] = ["admin"];
+  profileUrl: string = "https://t3.ftcdn.net/jpg/05/05/59/94/360_F_505599409_kpP9a01lXkN7XR3anYaHSFVFzEP1E7fn.jpg"
+  about:string = "texto por defecto";
+  roles:string[] = ["user"];
   errMsj: string;
   isLogged = false;
 
@@ -38,7 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(): void {
-    this.nuevoUsuario = new NewUser(this.nombre,this.apellido, this.nombreUsuario, this.email, this.password,this.telefono,this.birthday,this.roles);
+    this.nuevoUsuario = new NewUser(this.nombre,this.apellido, this.nombreUsuario, this.email, this.password,this.telefono,this.birthday,this.roles, this.about);
     this.authService.newUser(this.nuevoUsuario).subscribe(
       data => {
         this.toastr.success('Cuenta Creada', 'OK', {

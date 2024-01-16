@@ -1,0 +1,52 @@
+
+<div class="container-fluid w-50">
+
+    <div class="card o-hidden shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">¡Editar Informacion!</h1>
+                        </div>
+                        <form #f="ngForm" (ngSubmit)="onUpdate()" novalidate>
+                            <div class="form-group">
+                                <div class="col">
+                                    <label for="projectName">Nombre del proyecto</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtTitle"
+                                        placeholder="{{currentInfo.projectName}}"
+                                        [(ngModel)]="projectName"
+                                        name="projectName"
+                                       >
+                                </div>
+                                <div class="col">
+                                    <label for="">Descripción del proyecto</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtDescripcion"
+                                        placeholder="{{currentInfo.description}}"
+                                        [(ngModel)]="descripcion"
+                                        name="descripcion"
+                                        >
+                                </div>
+                                <div class="col">
+                                    <label for="url">URL del repositorio</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtDescripcion"
+                                        placeholder="{{currentInfo.repositoryUrl}}"
+                                        [(ngModel)]="repositoryUrl"
+                                        name="url"
+                                        >
+                                </div>
+                            </div>
+                            <div class="form-group row button w-25 my-2">
+                                <button class="btn btn-success btn-user py-3">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

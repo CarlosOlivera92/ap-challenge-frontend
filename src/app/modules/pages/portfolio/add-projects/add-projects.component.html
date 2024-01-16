@@ -1,0 +1,49 @@
+
+<div class="container">
+
+    <div class="card o-hidden shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">¡Crear!</h1>
+                        </div>
+                        <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtTitle"
+                                        placeholder="Nombre del proyecto"
+                                        [(ngModel)]="projectName"
+                                        name="pName"
+                                       >
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtDescripcion"
+                                        placeholder="Descripcion del Proyecto"
+                                        [(ngModel)]="descripcion"
+                                        name="pDescripcion"
+                                        >
+                                </div>
+                                <div class="col">
+                                    <input type="placeholder" class="form-control form-control-user"
+                                    id="txtDescripcion"
+                                    placeholder="URL al repositorio"
+                                    [(ngModel)]="repositoryUrl"
+                                    name="pDescripcion"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group row button w-25 my-2">
+                                <button class="btn btn-success btn-user py-3">Añadir Proyecto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

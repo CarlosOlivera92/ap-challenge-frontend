@@ -9,11 +9,12 @@
 
         <div class="user-info">
             <div class="user-icon">
-                <img 
-                src="https://t3.ftcdn.net/jpg/05/05/59/94/360_F_505599409_kpP9a01lXkN7XR3anYaHSFVFzEP1E7fn.jpg" 
-                alt="">
-            </div>
+                <a routerLink="editProfilePic/{{currentUser.id}}">
+                    <img class="edit-url" src="https://cdn.icon-icons.com/icons2/841/PNG/512/flat-style-circle-edit_icon-icons.com_66939.png" alt="">
+                </a>
+                <img [src]="currentUser.profileUrl" alt="" srcset="">
 
+            </div>
             <div class="info">
                 <div class="personal-info p-2">
                     <h2>{{currentUser.nombre + " " + currentUser.apellido}} </h2>
@@ -22,9 +23,13 @@
                     <p>Fecha de nacimiento: {{currentUser.birthday}} </p>
                     <p *ngFor="let location of currentUser.statesTownships">Lugar de residencia {{location.township.township + ", " + location.state.state}} </p>
                 </div>
-                <div class="p-2 about-me">
-                    <h2>Sobre Mi</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
+                <div class="py-2 about-me">
+                    <div class="title d-flex align-content-center justify-content-between py-2">
+                        <h2>Sobre Mi</h2>
+                        <button routerLink="editUser/{{currentUser.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>    
+                    </div>
+                    <p *ngIf="!userInfo.about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
+                    <p *ngIf="userInfo.about"> {{currentUser.about}} </p>
                 </div>  
             </div>
         </div>
@@ -32,50 +37,33 @@
 
     <div class="line"></div>
 
-    <section class="work container-fluid">
-        <div class="row p-4 ">
-            <h1>Experiencia Laboral</h1>
-            <article class="row p-4">
-                <div class="image col-2">
-                    <img
-                    src="data:image/png;base64,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" 
-                    alt=""
-                    class="img">    
-                </div>
-                <div class="job-info col">
-                    <h2>Frontend Developer</h2>
-                    <p>Darwoft</p>
-                    <p>2020-2022</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                </div>
-            </article>
-            <article class="row p-4">
-                <div class="image col-2">
-                    <img
-                    src="https://www.curralia.es/wp-content/uploads/2021/03/Golbant.png" 
-                    alt=""
-                    class="img">    
-                </div>
-                <div class="job-info col">
-                    <h2>Frontend Developer</h2>
-                    <p>Globant</p>
-                    <p>2020-2022</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                </div>
-            </article>
-            <article class="row p-4">
-                <div class="image col-2">
-                    <img
-                    src="https://cdn.cnn.com/cnnnext/dam/assets/181109204242-mercado-libre-estrategias-longobardi-full-169.jpg" 
-                    alt=""
-                    class="img">    
-                </div>
-                <div class="job-info col">
-                    <h2>Frontend Developer</h2>
-                    <p>Mercado Libre</p>
-                    <p>2020-2022</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                </div>
+    <section class="work container-fluid p-4">
+        <div class="row p-4">
+            <div class="title">
+                <h1>Experiencia laboral</h1>
+                <button [routerLink]="['addProfessions']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
+            </div>
+            <article class="col m-2" *ngFor="let prof of professions">
+                <div class="actions">
+                    <button routerLink="editProfessions/{{prof.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button (click)="onDeleteProfession(prof.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
+                </div>  
+                <article class="col">
+                    <div class="row p-4" >
+                        <div class="image col-2">
+                            <img
+                            src="https://www.i3-technologies.com/media/te0hk1sa/business_icon-2-1.png" 
+                            alt=""
+                            class="img">    
+                        </div>
+                        <div class="job-info col">
+                            <h2> {{prof.position}} </h2>
+                            <p> {{prof.company.company}} </p>
+                            <p> Desde {{prof.since}} hasta {{prof.until}}</p>
+                            <p> {{prof.description}} </p>
+                        </div>
+                    </div>
+                </article>
             </article>
         </div>
     </section>
@@ -86,113 +74,44 @@
         <div class="row p-4">
             <div class="title">
                 <h1>Educación</h1>
-                <button (click)="onPress()" class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
+                <button [routerLink]="['addEducation']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
             </div>
-            <div *ngIf="displayAddEducationItem" class="addEdItem">
-                <app-add-education></app-add-education>
-            </div>
-            <app-education-card></app-education-card>
-
+            <section class="education col" *ngFor="let edu of userInstitutes">
+                <div class="actions">
+                    <button routerLink="editEducation/{{edu.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button (click)="onDeleteEduItem(edu.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
+                </div>
+                <article>
+                    <div class="row p-4">
+                        <div class="image col-2">
+                            <img
+                            src="https://cdn-icons-png.flaticon.com/512/46/46955.png" 
+                            alt=""
+                            class="img">    
+                        </div>
+                        <div class="stablishment-info col">
+                            <h2>{{edu.titulo}} </h2>
+                            <p> {{edu.institute.institute}}.</p>
+                            <p> {{edu.descripcion}} </p>
+                        </div>
+                    </div>
+                </article>
+            </section>
         </div>
     </section>
 
     <div class="line"></div>
 
-    <section class="skills row p-4 d-flex">
-        <h1>Habilidades</h1>
-        <article class="skill col bg-primary">
-            <h2 class="text-light">Inglés</h2>
-            <div class="progress-bar my-4">
-                <div class="progress">
-                    <div
-                    class="progress-bar bg-warning"
-                    role="progressbar"
-                    [style.width.%]="number"
-                    aria-valuenow="number"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    >
-                    {{number}}%
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="skill col bg-primary">
-            <h2 class="text-light">Inglés</h2>
-            <div class="progress-bar my-4">
-                <div class="progress">
-                    <div
-                    class="progress-bar bg-warning"
-                    role="progressbar"
-                    [style.width.%]="number"
-                    aria-valuenow="number"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    >
-                    {{number}}%
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="skill col bg-primary">
-            <h2 class="text-light">Inglés</h2>
-            <div class="progress-bar my-4">
-                <div class="progress">
-                    <div
-                    class="progress-bar bg-warning"
-                    role="progressbar"
-                    [style.width.%]="number"
-                    aria-valuenow="number"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    >
-                    {{number}}%
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="skill col bg-primary">
-            <h2 class="text-light">Inglés</h2>
-            <div class="progress-bar my-4">
-                <div class="progress">
-                    <div
-                    class="progress-bar bg-warning"
-                    role="progressbar"
-                    [style.width.%]="number"
-                    aria-valuenow="number"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    >
-                    {{number}}%
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="skill col bg-primary">
-            <h2 class="text-light">Inglés</h2>
-            <div class="progress-bar my-4">
-                <div class="progress">
-                    <div
-                    class="progress-bar bg-warning"
-                    role="progressbar"
-                    [style.width.%]="number"
-                    aria-valuenow="number"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    >
-                    {{number}}%
-                    </div>
-                </div>
-            </div>
-        </article>
-                
-    </section>
-
-    <div class="line"></div>
-
     <section class="projects row">
-        <h1>Proyectos</h1>
-        <article class=" project col">
+        <div class="title">
+            <h1>Proyectos</h1>
+            <button [routerLink]="['addProjects']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
+        </div>
+        <article class=" project col" *ngFor="let proyect of projects">
+            <div class="actions">
+                <button routerLink="editProjects/{{proyect.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                <button (click)="onDeleteProject(proyect.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
+            </div>
             <div class="project-preview">
                 <img
             src="https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863"
@@ -200,38 +119,9 @@
              >
             </div>
             <div class="project-info">
-                <h2>Project Name</h2>
-                <p>Duracion</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                <a href="#"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
-            </div>
-        </article>
-        <article class=" project col">
-            <div class="project-preview">
-                <img
-            src="https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863"
-            class=""
-             >
-            </div>
-            <div class="project-info">
-                <h2>Project Name</h2>
-                <p>Duracion</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                <a href="#"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
-            </div>
-        </article>
-        <article class=" project col">
-            <div class="project-preview">
-                <img
-            src="https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863"
-            class=""
-             >
-            </div>
-            <div class="project-info">
-                <h2>Project Name</h2>
-                <p>Duracion</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                <a href="#"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
+                <h2> {{proyect.projectName}} </h2>
+                <p> {{proyect.description}} </p>
+                <a href="{{proyect.repositoryUrl}}"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
             </div>
         </article>
     </section>

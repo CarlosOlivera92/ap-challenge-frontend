@@ -1,3 +1,13 @@
+button {
+    border-radius: .3rem;
+    margin: 0 .1rem;
+    width: 4rem;
+    padding: 1rem;
+}
+button {
+    width: auto;
+    padding: 1rem;
+}
 
 .content {
     background-color: #F5F5F5;
@@ -17,9 +27,29 @@
     transform: translateY(-55%);
     max-width: fit-content;
 }
+
+/*********** to copý ***************/
 .user-icon {
     border-radius: 2rem !important;
+    position: relative;
+    width: 16rem;
 }
+.user-icon .edit-url {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    left: 13rem;
+    width: 3rem;
+    height: 3rem !important;
+    transition: visibility 0s, opacity .1s ease-in-out;
+
+}
+.user-icon:hover .edit-url {
+    visibility: visible;
+    opacity: 1;
+
+}
+/************ here *************/
 .user-info .user-icon img {
     max-width: 16rem;
     height: 13rem;
@@ -40,9 +70,9 @@
     background-color: #424242;
 }
 .work, .education {
-    width: 95%;
+    width: 100%;
 }
-.work article {
+.work article, .education article {
     background-color: #E0E0E0;
     border-radius: .5rem;
     margin: 1rem 0;
@@ -50,20 +80,39 @@
     align-items: center;
     justify-content: center;
 }
-.work .image  {
+.work .image, .education .image   {
     width: 13rem;
     height: 13rem;
 }
-.work .image img{
+.work .image img, .education .image img{
     border-radius: .5rem;
     width: 100%;
     height: 98%;
     margin: 0 0;
 }
 
-.education button {
-    width: auto;
-    padding: 1rem;
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+}
+@media (max-width: 912px) {
+    .education .image {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+
+    }
+    .education .image img{
+        margin: 1rem;
+    }
+    .education article {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .actions {
+        top: 92%;
+        left: 0;
+    }
 }
 .skills {
     margin: 0 3rem;

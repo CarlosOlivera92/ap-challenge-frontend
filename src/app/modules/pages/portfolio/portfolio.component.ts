@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '@app/shared/services/token.service';
-import { AuthService } from '@app/shared/services/auth.service';
-import { Users } from '@app/shared/clases/users';
-import { JwtDTO } from '@app/shared/models/jwt-dto';
 import { UserService } from '@app/shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { EducationServiceService } from '@app/shared/services/education-service.service';
+import { InstitutosEd } from '@app/shared/models/institutos-ed';
+import { NewUser } from '@app/shared/models/new-user';
+import { UserInstitutes } from '@app/shared/models/user-institutes';
+import { ProfessionService } from '@app/shared/services/profession.service';
+import { Professions } from '@app/shared/models/professions';
+import { ProjectsService } from '@app/shared/services/projects.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -14,25 +18,31 @@ import { ToastrService } from 'ngx-toastr';
 export class PortfolioComponent implements OnInit {
   number:number= 50;
   user : any[] = [];
-  currentUser;
+  currentUser: any;
+  userInstitutes: any;
+  projects:any;
+  currentUserInstitutes: UserInstitutes;
+  professions: any;
   userInfo = JSON.parse(sessionStorage.getItem('user')!);
-  displayAddEducationItem = false;
-
-  
+  currentUserProfessions:any = [];
   constructor(private userService: UserService,
     private toastr: ToastrService,
-    private tokenService: TokenService) { }
+    private userInstituteService:EducationServiceService,
+    private professionsService: ProfessionService,
+    private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUserInstitutes();
+    this.getProfessions();
+    this.getProjects();
+    console.log(this.userInfo.about)
   }
 
   saleData = [
     { name: "Mobiles", value: 50 },
   ];
-  onPress() {
-    this.displayAddEducationItem = !this.displayAddEducationItem;
-  }
+
   getUsers(): void {
     this.userService.getUsersList().subscribe(
       data => {
@@ -40,7 +50,6 @@ export class PortfolioComponent implements OnInit {
         for (let i of this.user) {
           if (i.id == this.userInfo.id) {
             this.currentUser = i;
-            console.log(this.currentUser);
           }
         }
       },
@@ -49,5 +58,88 @@ export class PortfolioComponent implements OnInit {
       }
     );
   }
+  getUserInstitutes(): void {
+    this.userInstituteService.lista()
+    .subscribe(items => {
+      // You can use the arrow function expression:
+      var result = items.filter(obj => {
+        // Returns the object where
+        // the given property has some value 
+          return obj.usuario.id === this.currentUser.id
+      })
+      this.userInstitutes = result;
+    });
+  }
 
+  getProfessions(): void {
+    this.professionsService.lista()
+    .subscribe(
+      items => {
+        // You can use the arrow function expression:
+        var result = items.filter(obj => {
+          // Returns the object where
+          // the given property has some value 
+            return obj.usuario.id === this.currentUser.id
+        })
+        this.professions = result;
+      }
+    )
+  } 
+  getProjects() {
+    this.projectsService.getProjects()
+    .subscribe(items => {
+      // You can use the arrow function expression:
+      var result = items.filter(obj => {
+        console.log("algo")
+        console.log(this.currentUser.id)
+        // Returns the object where
+        // the given property has some value 
+          return obj.usuario.id === this.currentUser.id
+      })
+      this.projects = result;
+      console.log(this.projects);
+    });
+  }
+  onDeleteProject(id:number) {
+    this.projectsService.delete(id).subscribe(
+      data => {
+        this.toastr.success('Producto Eliminado', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    );
+  }
+  onDeleteProfession(id:number) {
+    this.professionsService.delete(id).subscribe(
+      data => {
+        this.toastr.success('Producto Eliminado', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    );
+  }
+  onDeleteEduItem(id: number) {
+    this.userInstituteService.delete(id).subscribe(
+      data => {
+        this.toastr.success('Producto Eliminado', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    );
+  }
 }

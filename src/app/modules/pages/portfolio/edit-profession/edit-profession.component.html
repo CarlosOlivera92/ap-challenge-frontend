@@ -1,0 +1,72 @@
+
+<div class="container-fluid w-50">
+
+    <div class="card o-hidden shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">¡Editar Experiencia!</h1>
+                        </div>
+                        <form #f="ngForm" (ngSubmit)="onUpdate()" novalidate>
+                            <div class="form-group">
+                                <div class="">
+                                    <label for="titulo">Cargo en la empresa</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtTitle"
+                                        placeholder="{{currentInfo.position}}"
+                                        [(ngModel)]="position"
+                                        name="titulo"
+                                        required
+                                       >
+                                </div>
+                                <div class="">
+                                    <label for="descripcion">Descripción de labores</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtDescripcion"
+                                        placeholder="{{currentInfo.description}}"
+                                        [(ngModel)]="descripcion"
+                                        name="descripcion"
+                                        required
+                                        >
+                                </div>
+                                <div class="">
+                                    <label for="field_answer">Editar empresa</label>
+                                    <select (ngModelChange)="onSelected($event)" class="form-control" id="field_answer" name="field_answer" [ngModel]="selectedItem">     
+                                        <option value="currentInfo.company.company" disabled selected>{{currentInfo.company.id}} : {{currentInfo.company.company}}  </option>                                   
+                                        <option required [ngValue]="company.id" *ngFor="let company of companies">{{company.id}} {{company.company}}</option>
+
+                                    </select> 
+                                </div>
+                                
+                                <div class="dates row">
+                                    <div class="form-group col">
+                                        <label for="since">Desde: </label>
+                                        <p>{{currentInfo.since}}</p>
+                                        <input type="date" id="since" name="since"
+                                        [(ngModel)]="since"
+                                        required
+                                        >
+                                    </div>
+                                
+                                    <div class="form-group col">
+                                        <label for="until">Hasta:</label>
+                                        <p>{{currentInfo.until}}</p>
+                                        <input type="date" id="until" name="until"
+                                        [(ngModel)]="until"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row button w-25 mx-1 my-2">
+                                <button [disabled]="!f.valid"  class="btn btn-success btn-user py-3 w-100">Editar informacion</button>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

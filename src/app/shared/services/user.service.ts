@@ -8,26 +8,27 @@ import { Users } from '../clases/users';
 })
 export class UserService {
 
-  private baseUrl = "http://localhost:8080/auth/lista";
+  private baseUrl = "http://localhost:8080/auth/users/";
 
   constructor(private httpClient : HttpClient) {
 
-   }
+  }
    //ESTE METODO SE COMUNICA CON EL BACK 
-   public getUsersList():Observable<Users[]>{
-    return this.httpClient.get<Users[]>(`${this.baseUrl}`);
+    public getUsersList():Observable<Users[]>{
+    return this.httpClient.get<Users[]>(this.baseUrl + 'lista');
    }
-   addUser(user:Users) : Observable<Object> {
-      return this.httpClient.post(`${this.baseUrl}`, user);
+    deleteUser(id:number) : Observable<Object> {
+      return this.httpClient.delete(this.baseUrl + `delete/${id}`)
    }
-   deleteUser(id:number) : Observable<Object> {
-      return this.httpClient.delete(`${this.baseUrl}/${id}`)
-   }
-   updateUser(id:number,user:Users) : Observable<Object>{
-      return this.httpClient.put(`${this.baseUrl}/${id}`,user);
+    updateUser(id:number,user:Users) : Observable<Object>{
+      return this.httpClient.put(this.baseUrl + `update/${id}`, user);
+    }
+    updateProfilePic(id:number,user:Users) : Observable<Object>{
+      return this.httpClient.put(this.baseUrl + `updateImg/${id}`, user);
     }
     getUserById(id:number):Observable<Users>{
-      return this.httpClient.get<Users>(`${this.baseUrl}/${id}`);
+      return this.httpClient.get<Users>(this.baseUrl + `lista/${id}`);
     }
+   
   
 }

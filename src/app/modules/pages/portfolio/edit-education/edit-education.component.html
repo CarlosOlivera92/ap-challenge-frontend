@@ -1,0 +1,51 @@
+
+<div class="container-fluid w-50" *ngIf="userInstitutes">
+
+    <div class="card o-hidden shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">¡Editar Informacion!</h1>
+                        </div>
+                        <form #f="ngForm" (ngSubmit)="onUpdate()" novalidate>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="titulo">Titulo o carrera</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtTitle"
+                                        placeholder="{{currentInfo.titulo}}"
+                                        [(ngModel)]="titulo"
+                                        name="titulo"
+                                       >
+                                </div>
+                                <div class="col">
+                                    <label for="descripcion">Descripcion</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        id="txtDescripcion"
+                                        placeholder="{{currentInfo.descripcion}}"
+                                        [(ngModel)]="descripcion"
+                                        name="descripcion"
+                                        >
+                                </div>
+                                <div class="">
+                                    <label for="field_answer">Editar instituto educativo</label>
+                                    <select (ngModelChange)="onSelected($event)" class="form-control" id="field_answer" name="field_answer" [ngModel]="selectedItem">     
+                                        <option value="currentInfo.institute" disabled selected>{{currentInfo.institute.id}} : {{currentInfo.institute.institute}}  </option>                                   
+                                        <option required [ngValue]="inst.id" *ngFor="let inst of institutes">{{inst.id}} {{inst.institute}}</option>
+
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="form-group row button my-2">
+                                <button class="btn btn-success btn-user py-3">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
