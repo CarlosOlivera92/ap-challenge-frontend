@@ -61,7 +61,7 @@ export class EditEducationComponent implements OnInit {
     };
     this.userInstituteService.update(id, userInstitute).subscribe(
       data => {
-        this.toastr.success('Producto Actualizado', 'OK', {
+        this.toastr.success('Item Actualizado', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
         this.router.navigate(['/portfolio']);

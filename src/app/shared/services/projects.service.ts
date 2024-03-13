@@ -7,7 +7,7 @@ import { Projects } from '../models/projects';
   providedIn: 'root'
 })
 export class ProjectsService {
-  private projectsUrl = 'http://localhost:8080/auth/projects/';
+  private projectsUrl = 'https://ap-challenge-backend.onrender.com/auth/projects/';
 
   getProjects(): Observable<any> {
     return this.httpClient.get<Projects[]>(this.projectsUrl + 'list')

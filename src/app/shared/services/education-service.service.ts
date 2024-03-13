@@ -9,8 +9,8 @@ import { UserInstitutes } from '../models/user-institutes';
 })
 export class EducationServiceService {
 
-  userInstitutesURL = 'http://localhost:8080/auth/userinstitutes/';
-  InstitutesURL = 'http://localhost:8080/auth/institutes/';
+  userInstitutesURL = 'https://ap-challenge-backend.onrender.com/auth/userinstitutes/';
+  InstitutesURL = 'https://ap-challenge-backend.onrender.com/auth/institutes/';
   
    getInstitute(): Observable<any> {
     return this.httpClient.get<InstitutosEd[]>(this.InstitutesURL + 'list')

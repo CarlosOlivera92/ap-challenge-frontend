@@ -36,7 +36,7 @@ export class AddEducationComponent implements OnInit {
     institutes.institute = this.institute;
     this.userInstituteService.addInstitute(institutes).subscribe(
       data => {
-        this.toastr.success('Producto Creado', 'OK', {
+        this.toastr.success('Item Creado', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
       },
@@ -59,7 +59,7 @@ export class AddEducationComponent implements OnInit {
     };
     this.userInstituteService.save(userInstitute).subscribe(
       data => {
-        this.toastr.success('Producto Creado', 'OK', {
+        this.toastr.success('Item Creado', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
         this.router.navigate(['/portfolio']);

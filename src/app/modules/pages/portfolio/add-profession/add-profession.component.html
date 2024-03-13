@@ -1,6 +1,4 @@
-
 <div class="container">
-
     <div class="card o-hidden shadow-lg my-5">
         <div class="card-body p-0">
             <div class="row">
@@ -12,38 +10,26 @@
                         <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
                             <div class="form-group row">
                                 <div class="col">
-                                    <input type="text" class="form-control form-control-user"
-                                        id="txtTitle"
-                                        placeholder="Posicion en la empresa"
-                                        [(ngModel)]="position"
-                                        name="titulo"
-                                       >
+                                    <input type="text" class="form-control form-control-user" id="txtTitle" placeholder="Posicion en la empresa" [(ngModel)]="position" name="titulo">
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control form-control-user"
-                                        id="txtDescripcion"
-                                        placeholder="Descripcion de tu trabajo"
-                                        [(ngModel)]="descripcion"
-                                        name="descripcion"
-                                        >
+                                    <input type="text" class="form-control form-control-user" id="txtDescripcion" placeholder="Descripcion de tu trabajo" [(ngModel)]="descripcion" name="descripcion">
                                 </div>
                                 <div class="col">
-                                    <select (ngModelChange)="onSelected($event)"  class="form-control" id="field_answer" name="field_answer" [ngModel]="selectedItem">
-                                        <option [ngValue]="company.id" *ngFor="let company of companies">{{company.id}} {{company.company}}</option>
-                                    </select> 
-                                </div>
+                                    <select (change)="onSelected($event)" class="form-control" id="field_answer" name="field_answer" [(ngModel)]="selectedItem">
+                                        <option *ngFor="let company of companies" [value]="company.id">
+                                            {{company.id}}: {{company.company}} 
+                                        </option>
+                                    </select>
+                                </div>  
                                 <div class="dates row">
                                     <div class="form-group col">
-                                        <label for="birthday">Desde: </label>
-                                        <input type="date" id="birthday" name="birthday"
-                                        [(ngModel)]="since"
-                                        >
+                                        <label for="since">Desde: </label>
+                                        <input type="date" id="since" name="since" [(ngModel)]="since">
                                     </div>
                                     <div class="form-group col">
-                                        <label for="birthday">Hasta:</label>
-                                        <input type="date" id="birthday" name="birthday"
-                                        [(ngModel)]="until"
-                                        >
+                                        <label for="until">Hasta:</label>
+                                        <input type="date" id="until" name="until" [(ngModel)]="until">
                                     </div>
                                 </div>
                             </div>
@@ -51,15 +37,10 @@
                                 <button class="btn btn-success btn-user py-3">Añadir informacion</button>
                             </div>
                         </form>
-                        <form #f="ngForm" (ngSubmit)="onCreateCompany()" novalidate >
+                        <form #f2="ngForm" (ngSubmit)="onCreateCompany()" novalidate>
                             <div class="col">
                                 <label for="company">Si su empresa no aparece, ingrésela y vuelva a cargar la página</label>
-                                <input  type="text" class="form-control form-control-user"
-                                    id="txtDescripcion"
-                                    placeholder="Agregar Empresa"
-                                    [(ngModel)]="company"
-                                    name="company"
-                                    >
+                                <input type="text" class="form-control form-control-user" id="txtDescripcion" placeholder="Agregar Empresa" [(ngModel)]="company" name="company">
                             </div>
                             <div class="form-group row button w-25 mx-1 my-2">
                                 <button class="btn btn-success btn-user py-3">Añadir Empresa</button>
@@ -71,4 +52,3 @@
         </div>
     </div>
 </div>
-

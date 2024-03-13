@@ -9,8 +9,8 @@ import { Professions } from '../models/professions';
 })
 export class ProfessionService {
 
-  private professionsURL = 'http://localhost:8080/auth/uerscompanies/';
-  private companies = 'http://localhost:8080/auth/companies/';
+  private professionsURL = 'https://ap-challenge-backend.onrender.com/auth/uerscompanies/';
+  private companies = 'https://ap-challenge-backend.onrender.com/auth/companies/';
 
   getCompanies(): Observable<any> {
     return this.httpClient.get<Company[]>(this.companies + 'list')

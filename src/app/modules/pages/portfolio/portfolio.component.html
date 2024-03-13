@@ -1,128 +1,126 @@
 <div class="content container-fluid m-0 p-0">
-    <section class="user-card px-3">
-        <div class="banner">
-            <img
-            src="https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863"
-            class="rounded-3   "
-             >
+    <div *ngIf="loading" class="text-center mt-5">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
+    </div>
 
-        <div class="user-info">
-            <div class="user-icon">
-                <a routerLink="editProfilePic/{{currentUser.id}}">
-                    <img class="edit-url" src="https://cdn.icon-icons.com/icons2/841/PNG/512/flat-style-circle-edit_icon-icons.com_66939.png" alt="">
-                </a>
-                <img [src]="currentUser.profileUrl" alt="" srcset="">
-
+    <div *ngIf="!loading">
+        <section class="user-card px-3" *ngIf="currentUser">
+            <div class="banner">
+                <img [src]="'https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863'" class="rounded-3">
             </div>
-            <div class="info">
-                <div class="personal-info p-2">
-                    <h2>{{currentUser.nombre + " " + currentUser.apellido}} </h2>
-                    <p>Email: {{currentUser.email}}</p>
-                    <p>Telefono {{currentUser.telefono}}</p>
-                    <p>Fecha de nacimiento: {{currentUser.birthday}} </p>
-                    <p *ngFor="let location of currentUser.statesTownships">Lugar de residencia {{location.township.township + ", " + location.state.state}} </p>
+
+            <div class="user-info">
+                <div class="user-icon">
+                    <a [routerLink]="'editProfilePic/' + currentUser.id">
+                        <img class="edit-url" src="https://cdn.icon-icons.com/icons2/841/PNG/512/flat-style-circle-edit_icon-icons.com_66939.png" alt="">
+                    </a>
+                    <img [src]="currentUser.profileUrl" alt="" srcset="">
                 </div>
-                <div class="py-2 about-me">
-                    <div class="title d-flex align-content-center justify-content-between py-2">
-                        <h2>Sobre Mi</h2>
-                        <button routerLink="editUser/{{currentUser.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>    
+                <div class="info">
+                    <div class="personal-info p-2">
+                        <h2>{{ currentUser.nombre + " " + currentUser.apellido }} </h2>
+                        <p>Email: {{ currentUser.email }}</p>
+                        <p>Telefono {{ currentUser.telefono }}</p>
+                        <p>Fecha de nacimiento: {{ currentUser.birthday }} </p>
+                        <p *ngFor="let location of currentUser.statesTownships">Lugar de residencia {{ location.township.township + ", " + location.state.state }} </p>
                     </div>
-                    <p *ngIf="!userInfo.about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
-                    <p *ngIf="userInfo.about"> {{currentUser.about}} </p>
-                </div>  
-            </div>
-        </div>
-    </section>
-
-    <div class="line"></div>
-
-    <section class="work container-fluid p-4">
-        <div class="row p-4">
-            <div class="title">
-                <h1>Experiencia laboral</h1>
-                <button [routerLink]="['addProfessions']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
-            </div>
-            <article class="col m-2" *ngFor="let prof of professions">
-                <div class="actions">
-                    <button routerLink="editProfessions/{{prof.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                    <button (click)="onDeleteProfession(prof.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
-                </div>  
-                <article class="col">
-                    <div class="row p-4" >
-                        <div class="image col-2">
-                            <img
-                            src="https://www.i3-technologies.com/media/te0hk1sa/business_icon-2-1.png" 
-                            alt=""
-                            class="img">    
+                    <div class="py-2 about-me">
+                        <div class="title d-flex align-content-center justify-content-between py-2">
+                            <h2>Sobre Mi</h2>
+                            <button [routerLink]="'editUser/' + currentUser.id" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                         </div>
-                        <div class="job-info col">
-                            <h2> {{prof.position}} </h2>
-                            <p> {{prof.company.company}} </p>
-                            <p> Desde {{prof.since}} hasta {{prof.until}}</p>
-                            <p> {{prof.description}} </p>
-                        </div>
+                        <p *ngIf="!currentUser.about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat magna sed efficitur volutpat. Mauris imperdiet metus sed neque maximus dapibus. Morbi mollis eros nec nisl dictum, in ullamcorper elit imperdiet. Etiam vulputate non enim vel imperdiet. Quisque hendrerit tempus turpis, sed tempor eros rutrum sed. Phasellus in laoreet purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce sit amet sollicitudin felis.</p>
+                        <p *ngIf="currentUser.about">{{ currentUser.about }}</p>
                     </div>
-                </article>
-            </article>
-        </div>
-    </section>
-
-    <div class="line"></div>
-
-    <section class="education container-fluid">
-        <div class="row p-4">
-            <div class="title">
-                <h1>Educación</h1>
-                <button [routerLink]="['addEducation']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
-            </div>
-            <section class="education col" *ngFor="let edu of userInstitutes">
-                <div class="actions">
-                    <button routerLink="editEducation/{{edu.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                    <button (click)="onDeleteEduItem(edu.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
                 </div>
-                <article>
-                    <div class="row p-4">
-                        <div class="image col-2">
-                            <img
-                            src="https://cdn-icons-png.flaticon.com/512/46/46955.png" 
-                            alt=""
-                            class="img">    
-                        </div>
-                        <div class="stablishment-info col">
-                            <h2>{{edu.titulo}} </h2>
-                            <p> {{edu.institute.institute}}.</p>
-                            <p> {{edu.descripcion}} </p>
-                        </div>
+            </div>
+        </section>
+
+        <div class="line"></div>
+
+        <section class="work container-fluid p-4">
+            <div class="row">
+                <div class="title">
+                    <h1>Experiencia laboral</h1>
+                    <button [routerLink]="['addProfessions']" class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
+                </div>
+                <article class="col m-2" *ngFor="let prof of professions">
+                    <div class="actions">
+                        <button [routerLink]="'editProfessions/' + prof.id" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                        <button *ngIf="prof.id" (click)="onDeleteProfession(prof.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
                     </div>
+                    <article class="col">
+                        <div class="row p-4">
+                            <div class="image col-2">
+                                <img src="https://www.i3-technologies.com/media/te0hk1sa/business_icon-2-1.png" alt="" class="img">
+                            </div>
+                            <div class="job-info col">
+                                <h2>{{ prof.position }}</h2>
+                                <p >{{ prof.company.company }}</p>
+                                <p>Desde {{ prof.since }} hasta {{ prof.until }}</p>
+                                <p>{{ prof.description }}</p>
+                            </div>
+                        </div>
+                    </article>
                 </article>
-            </section>
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <div class="line"></div>
+        <div class="line"></div>
 
-    <section class="projects row">
-        <div class="title">
-            <h1>Proyectos</h1>
-            <button [routerLink]="['addProjects']"  class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
-        </div>
-        <article class=" project col" *ngFor="let proyect of projects">
-            <div class="actions">
-                <button routerLink="editProjects/{{proyect.id}}" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                <button (click)="onDeleteProject(proyect.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
+        <section class="education container-fluid p-4">
+            <div class="row">
+                <div class="title">
+                    <h1>Educación</h1>
+                    <button [routerLink]="['addEducation']" class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
+                </div>
+                <section class="education col" *ngFor="let edu of userInstitutes">
+                    <div class="actions">
+                        <button [routerLink]="'editEducation/' + edu.id" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                        <button *ngIf="edu.id" (click)="onDeleteEduItem(edu.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <article class="">
+                        <div class="row p-4">
+                            <div class="image col-2">
+                                <img src="https://cdn-icons-png.flaticon.com/512/46/46955.png" alt="" class="img">
+                            </div>
+                            <div class="stablishment-info col">
+                                <h2>{{ edu.titulo }}</h2>
+                                <p>{{ edu.institute.institute }}.</p>
+                                <p>{{ edu.descripcion }}</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
             </div>
-            <div class="project-preview">
-                <img
-            src="https://www.hays.es/documents/26770067/27052177/Image_Tech_Job_Software_Developer_LandingPage.jpg/cf2164d1-994b-1bfb-63f3-227b6c87fa20?t=1630661083863"
-            class=""
-             >
+        </section>
+
+        <div class="line"></div>
+
+        <section class="projects-container p-4">
+            <div class="title">
+                <h1>Proyectos</h1>
+                <button [routerLink]="['addProjects']" class="btn btn-primary btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i>Añadir</button>
             </div>
-            <div class="project-info">
-                <h2> {{proyect.projectName}} </h2>
-                <p> {{proyect.description}} </p>
-                <a href="{{proyect.repositoryUrl}}"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
+            <div class="row d-flex justify-content-center">
+                <article class="project" *ngFor="let proyect of projects">
+                    <div class="actions">
+                        <button [routerLink]="'editProjects/' + proyect.id" class="btn btn-success btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                        <button (click)="onDeleteProject(proyect.id)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="project-preview">
+                        <img src="https://w0.peakpx.com/wallpaper/688/193/HD-wallpaper-ghibli-a%C2%B7-github-topics-a%C2%B7-github-cute-ghibli.jpg" class="">
+                    </div>
+                    <div class="project-info">
+                        <h2>{{ proyect.projectName }}</h2>
+                        <p>{{ proyect.description }}</p>
+                        <a [href]="proyect.repositoryUrl"><button type="button" class="btn btn-success">Ir al proyecto</button> </a>
+                    </div>    
+                </article>
             </div>
-        </article>
-    </section>
+
+        </section>
+    </div>
 </div>

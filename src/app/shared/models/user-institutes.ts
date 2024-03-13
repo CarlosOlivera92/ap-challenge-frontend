@@ -1,11 +1,10 @@
-import { InstitutosEd } from "./institutos-ed";
 
 export class UserInstitutes {
     id?:number;
     titulo:string;
     descripcion:string;
     usuario: { id: any; };
-  institute: { id: any; };
+  institute: any;
 
 }
 export interface Usuario {

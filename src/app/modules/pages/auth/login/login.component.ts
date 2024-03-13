@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginUser } from '@app/shared/models/login-user';
 import { AuthService } from '@app/shared/services/auth.service';
 import { TokenService } from '@app/shared/services/token.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { LoginUser } from '@app/shared/models/login-user';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   roles : String[] = [];
   user : String[] = [];
   errMsj: string;
+  loading = false; // Estado de loading
 
   constructor(
     private tokenService:TokenService,
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
     }
   }
   onLogin(): void {
+    this.loading = true; // Activar el estado de loading
     this.userLogin = new LoginUser(this.userEmail, this.password);
     this.authService.login(this.userLogin).subscribe(
       data => {
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
         .then(() => {
           window.location.reload();
         });
-        
+        this.loading = false; // Desactivar el estado de loading
 
       },
       err => {
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit {
         this.toastr.error(this.errMsj, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
+        this.loading = false; // Desactivar el estado de loading en caso de error
         // console.log(err.error.message);
       }
     );

@@ -10,4 +10,7 @@ export class Users {
     roles:string[];
     about:string;
     profileUrl: string;
+    usuarioEducacion: [];
+    projects: [];
+    companiesUsuarios: [];
 }
